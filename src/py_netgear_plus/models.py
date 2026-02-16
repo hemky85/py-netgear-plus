@@ -43,7 +43,7 @@ class AutodetectedSwitchModel:
     CRYPT_FUNCTION: ClassVar = "merge_hash"
     LOGIN_TEMPLATE: ClassVar = {
         "method": "post",
-        "url": "http://{ip}/login.cgi",
+        "url": "http://{ip}",
         "params": {"password": "_password_hash"},
     }
 

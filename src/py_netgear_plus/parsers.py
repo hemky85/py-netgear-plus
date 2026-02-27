@@ -1287,5 +1287,10 @@ class GS116Ev2(JGSxxxSeries):
         """Initialize the GS116Ev2 parser."""
         super().__init__()
 
+# Ab hier GS728TTP
+
+class GS728TTPParser(StandardParser): # Oder ein ähnlicher Parser
+    """Initialize the GS728TTP parser."""
+    pass
 
 PARSERS = get_all_child_classes_dict(PageParser)

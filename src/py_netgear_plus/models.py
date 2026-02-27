@@ -717,5 +717,33 @@ class GS116Ev2(JGSxxxSeries):
         ("parse_first_script_tag", ["GS116Ev2"]),
     ]
 
+# Ab hier GS728TTP
+
+class GS728TTP(AutodetectedSwitchModel):
+    """Definition für Netgear GS728TTP Modell."""
+
+    MODEL_NAME = "GS728TTP"
+    PORTS = 28  # 24 Gigabit Ports + 4 SFP Ports
+    POE_PORTS: ClassVar = list(range(1, 25))  # Ports 1 bis 24 haben PoE
+    POE_MAX_POWER_ALL_PORTS = 190  # Je nach Hardware-Revision (bitte prüfen!)
+    ALLOWED_COOKIE_TYPES: ClassVar = ["SID"]
+
+    # Erkennungsmerkmale (Checks)
+    CHECKS_AND_RESULTS: ClassVar = [
+        ("check_login_form_rand", [True]),
+        ("parse_login_title_tag", ["GS728TTP"]),
+    ]
+
+    # Pfade zu den Web-Schnittstellen (URLs ggf. im Browser prüfen)
+    LOGIN_TEMPLATE: ClassVar = {
+        "method": "post",
+        "url": "http://{ip}/login.cgi",
+        "params": {"password": "_password_hash"},
+    }
+    SWITCH_INFO_TEMPLATES: ClassVar = [{"method": "get", "url": "http://{ip}/switch_info.cgi"}]
+    PORT_STATUS_TEMPLATES: ClassVar = [{"method": "get", "url": "http://{ip}/status.cgi"}]
+    PORT_STATISTICS_TEMPLATES: ClassVar = [{"method": "get", "url": "http://{ip}/portStatistics.cgi"}]
+    LOGOUT_TEMPLATES: ClassVar = [{"method": "get", "url": "http://{ip}/logout.cgi"}]
+
 
 MODELS = get_all_child_classes_list(AutodetectedSwitchModel, "MODEL_NAME")
